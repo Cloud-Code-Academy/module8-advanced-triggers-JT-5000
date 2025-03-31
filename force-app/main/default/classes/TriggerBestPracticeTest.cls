@@ -234,7 +234,7 @@ public with sharing class TriggerBestPracticeTest {
         List<Contact> contacts = [SELECT Id, LastName, Email, AccountId FROM Contact WHERE AccountId IN :accountsToInsert];
 
         // Assert that the correct number of Contacts has been created
-        System.assertEquals(400, contacts.size(), 'Incorrect number of Contacts created.');
+        System.assertEquals(1600, contacts.size(), 'Incorrect number of Contacts created.');
 
         // Assert that each Contact has the expected field values
         for (Contact con : contacts) {

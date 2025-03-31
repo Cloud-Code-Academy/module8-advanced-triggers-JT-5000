@@ -24,55 +24,27 @@ trigger AccountTrigger on Account (before insert, after insert) {
     * When an account is inserted change the account type to 'Prospect' if there is no value in the type field.
     * Trigger should only fire on insert.
     */
-    if (Trigger.isBefore && Trigger.isInsert) {
-        for (Account acc : Trigger.new) {
-            if (acc.Type == null) {
-                acc.Type = 'Prospect';
-            }
-        }
-    }
+    AccountTriggerHandler question1TriggerHandler = new AccountTriggerHandler();
+    question1TriggerHandler.run();
+    
 
     /*
     * Account Trigger
     * When an account is inserted copy the shipping address to the billing address.
     * Trigger should only fire on insert.
     */
-    if (Trigger.isBefore && Trigger.isInsert) {
-        for (Account acc : Trigger.new) {
-            if (acc.ShippingStreet != null) {
-                acc.BillingStreet = acc.ShippingStreet;
-            }
+    AccountTriggerHandler question2TriggerHandler = new AccountTriggerHandler();
+    question2TriggerHandler.run();
 
-            if (acc.ShippingCity != null) {
-                acc.BillingCity = acc.ShippingCity;
-            }
-
-            if (acc.ShippingState != null) {
-                acc.BillingState = acc.ShippingState;
-            }
-
-            if (acc.ShippingPostalCode != null) {
-                acc.BillingPostalCode = acc.ShippingPostalCode;
-            }
-
-            if (acc.ShippingCountry != null) {
-                acc.BillingCountry = acc.ShippingCountry;
-            }
-        }        
-    }
 
     /*
     * Account Trigger
     * When an account is inserted set the rating to 'Hot' if the Phone, Website, and Fax is not empty.
     * Trigger should only fire on insert.
     */
-    if (Trigger.isBefore && Trigger.isInsert) {
-        for (Account acc : Trigger.new) {
-            if (acc.Phone != null && acc.Website != null && acc.Fax != null) {
-                acc.Rating = 'Hot';
-            }
-        }
-    }
+    AccountTriggerHandler question3TriggerHandler = new AccountTriggerHandler();
+    question3TriggerHandler.run();
+
     
     /*
     * Account Trigger
@@ -80,16 +52,7 @@ trigger AccountTrigger on Account (before insert, after insert) {
     * LastName = 'DefaultContact'
     * Email = 'default@email.com'
     * Trigger should only fire on insert.
-    */    
-    if(Trigger.isAfter && Trigger.isInsert){     
-        List<Contact> contacts = new List<Contact>();   
-        for(Account acc : Trigger.new){
-            Contact con = new Contact();
-            con.LastName = 'DefaultContact';
-            con.Email = 'default@email.com';
-            con.AccountId = acc.Id;
-            contacts.add(con);
-        }
-        insert contacts; 
-    }
+    */  
+    AccountTriggerHandler question4TriggerHandler = new AccountTriggerHandler();
+    question4TriggerHandler.run();
 }
